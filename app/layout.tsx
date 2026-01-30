@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${crimsonPro.variable} ${dmSans.variable} font-sans`}>
+      <body className={`${crimsonPro.variable} ${dmSans.variable} font-sans`} suppressHydrationWarning>
         <ProgressProvider>
           <div className="flex h-screen bg-stone-50">
             {/* Sidebar */}
