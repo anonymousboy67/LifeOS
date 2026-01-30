@@ -11,58 +11,55 @@ export default function Header() {
   const nextLevelXP = xpForNextLevel(progress.level);
 
   return (
-    <header className="h-16 bg-white border-b border-stone-200 flex items-center justify-between px-6">
-      {/* Left side - could add breadcrumbs or page title here */}
-      <div className="flex items-center gap-4">
-        <div className="text-sm text-stone-500">
-          {new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
+    <header className="h-auto md:h-16 bg-white border-b border-stone-200 px-4 sm:px-6 py-3 md:py-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-4 h-full">
+        {/* Left side - Date (hidden on mobile, shown on tablet+) */}
+        <div className="hidden sm:flex items-center gap-4">
+          <div className="text-xs sm:text-sm text-stone-500">
+            {new Date().toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Right side - Stats */}
-      <div className="flex items-center gap-6">
-        {/* Current Streak */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-lg">
-            <Flame className="w-4 h-4 text-orange-500" />
-            <span className="text-sm font-semibold text-orange-700">
+        {/* Right side - Stats */}
+        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
+          {/* Current Streak */}
+          <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-orange-50 border border-orange-200 rounded-lg">
+            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+            <span className="text-xs sm:text-sm font-semibold text-orange-700">
               {progress.currentStreak}
             </span>
-            <span className="text-xs text-orange-600">day streak</span>
+            <span className="hidden sm:inline text-xs text-orange-600">day streak</span>
           </div>
-        </div>
 
-        {/* Level & XP */}
-        <div className="flex items-center gap-3">
           {/* Level Badge */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 border border-indigo-200 rounded-lg">
-            <Trophy className="w-4 h-4 text-indigo-500" />
-            <span className="text-sm font-semibold text-indigo-700">
-              Level {progress.level}
+          <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-indigo-50 border border-indigo-200 rounded-lg">
+            <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
+            <span className="text-xs sm:text-sm font-semibold text-indigo-700">
+              L{progress.level}
             </span>
           </div>
 
-          {/* XP Progress */}
-          <div className="flex items-center gap-2">
+          {/* XP Progress - Hidden on smallest screens */}
+          <div className="hidden xs:flex items-center gap-2">
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-indigo-500" />
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-500" />
                 <span className="text-xs font-medium text-stone-700">
                   {progress.totalXP.toLocaleString()} XP
                 </span>
               </div>
-              <div className="w-32 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+              <div className="w-20 sm:w-32 h-1.5 bg-stone-100 rounded-full overflow-hidden mt-1">
                 <div 
                   className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-500"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <span className="text-xs text-stone-500 mt-0.5">
-                {nextLevelXP - progress.totalXP} XP to next level
+              <span className="text-xs text-stone-500 mt-0.5 hidden sm:inline">
+                {nextLevelXP - progress.totalXP} XP to next
               </span>
             </div>
           </div>
