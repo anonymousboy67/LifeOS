@@ -76,22 +76,34 @@ export const dayDataStorage = {
   // Update or create day data
   updateDay: (date: string, updates: Partial<Omit<DayData, 'date'>>) => {
     const allData = dayDataStorage.get();
-    const existing = allData.find(d => d.date === date);
+    const existingIndex = allData.findIndex(d => d.date === date);
     
-    if (existing) {
-      const updated = allData.map(d => 
-        d.date === date ? { ...d, ...updates } : d
-      );
+    if (existingIndex !== -1) {
+      // Update existing day - increment/decrement values
+      const existing = allData[existingIndex];
+      const updated = allData.map((d, i) => {
+        if (i === existingIndex) {
+          return {
+            ...d,
+            tasksCompleted: (existing.tasksCompleted || 0) + (updates.tasksCompleted || 0),
+            xpEarned: (existing.xpEarned || 0) + (updates.xpEarned || 0),
+            focusMinutes: (existing.focusMinutes || 0) + (updates.focusMinutes || 0),
+            sleepHours: updates.sleepHours !== undefined ? updates.sleepHours : existing.sleepHours,
+            moneySpent: (existing.moneySpent || 0) + (updates.moneySpent || 0),
+          };
+        }
+        return d;
+      });
       dayDataStorage.set(updated);
     } else {
+      // Create new day entry
       const newDay: DayData = {
         date,
-        tasksCompleted: 0,
-        xpEarned: 0,
-        focusMinutes: 0,
-        sleepHours: 0,
-        moneySpent: 0,
-        ...updates,
+        tasksCompleted: updates.tasksCompleted || 0,
+        xpEarned: updates.xpEarned || 0,
+        focusMinutes: updates.focusMinutes || 0,
+        sleepHours: updates.sleepHours || 0,
+        moneySpent: updates.moneySpent || 0,
       };
       dayDataStorage.set([...allData, newDay]);
     }
