@@ -21,6 +21,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Life OS - Your Personal Operating System',
   description: 'Track tasks, focus time, sleep, and expenses in one calm space',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 };
 
 export default function RootLayout({
@@ -32,15 +33,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${crimsonPro.variable} ${dmSans.variable} font-sans`} suppressHydrationWarning>
         <ProgressProvider>
-          <div className="flex h-screen bg-stone-50">
-            {/* Sidebar */}
-            <Sidebar />
+          {/* Mobile: Stack vertically, Desktop: Side-by-side */}
+          <div className="flex flex-col md:flex-row h-screen bg-stone-50 overflow-hidden">
+            {/* Sidebar - Hidden on mobile, shown on tablet+ */}
+            <div className="hidden md:block">
+              <Sidebar />
+            </div>
             
             {/* Main Content */}
             <div className="flex-1 flex flex-col overflow-hidden">
               <Header />
               <main className="flex-1 overflow-y-auto">
-                <div className="max-w-7xl mx-auto px-6 py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
                   {children}
                 </div>
               </main>
