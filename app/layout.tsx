@@ -34,17 +34,17 @@ export default function RootLayout({
       <body className={`${crimsonPro.variable} ${dmSans.variable} font-sans`} suppressHydrationWarning>
         <ProgressProvider>
           {/* Mobile: Stack vertically, Desktop: Side-by-side */}
-          <div className="flex flex-col md:flex-row h-screen bg-stone-50 overflow-hidden">
+          <div className="flex flex-col md:flex-row min-h-screen bg-stone-50">
             {/* Sidebar - Hidden on mobile, shown on tablet+ */}
-            <div className="hidden md:block">
+            <div className="hidden md:flex md:flex-shrink-0">
               <Sidebar />
             </div>
             
             {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col min-w-0">
               <Header />
               <main className="flex-1 overflow-y-auto">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+                <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
                   {children}
                 </div>
               </main>

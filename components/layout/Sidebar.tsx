@@ -52,7 +52,7 @@ export default function Sidebar() {
       {/* Sidebar - Mobile: Slide from right, Desktop: Always visible */}
       <div
         className={cn(
-          'fixed md:static inset-y-0 right-0 z-50 w-64 bg-white border-l md:border-r md:border-l-0 border-stone-200 flex flex-col transform transition-transform duration-300 ease-in-out',
+          'fixed md:relative inset-y-0 right-0 md:right-auto md:left-0 z-50 md:z-auto w-64 bg-white border-l md:border-r md:border-l-0 border-stone-200 flex flex-col transform transition-transform duration-300 ease-in-out',
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'
         )}
       >
